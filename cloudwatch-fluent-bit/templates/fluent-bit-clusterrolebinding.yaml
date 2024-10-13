@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ index .Values "aws-for-fluent-bit" "fluentBitRoleBinding" }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ index .Values "aws-for-fluent-bit" "fluentBitClusterRole" }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ index .Values "aws-for-fluent-bit" "fluentBitServiceAccountname" }}
+    namespace: {{ index .Values "aws-cloudwatch-metrics" "namespace" }}

@@ -1,0 +1,12 @@
+apiVersion: v1
+data:
+  cluster.name: {{ index .Values "aws-for-fluent-bit" "clusterName" }}
+  logs.region: {{ index .Values "aws-cloudwatch-metrics" "region" }}
+  http.server: 'On'
+  http.port: '2020'
+  read.head: 'On' 
+  read.tail: 'On'
+kind: ConfigMap
+metadata:
+  name: {{ index .Values "aws-for-fluent-bit" "fluentBitMetadataName" }}
+  namespace: {{ index .Values "aws-cloudwatch-metrics" "namespace" }}

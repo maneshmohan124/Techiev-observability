@@ -1,0 +1,84 @@
+aws-cloudwatch-metrics:
+
+ serviceAccount:
+  create: false
+
+ namespace: amazon-cloudwatch
+ 
+ cloudWatchConfigmap: cwagentconfig
+ 
+ region:                          #type the Region
+
+ serviceAccountname: cloudwatch-agent
+
+ clusterRole: cloudwatch-agent-role
+
+ roleBinding: cloudwatch-agent-role-binding
+
+ daemonSet: cloudwatch-agent 
+
+ clusterName:                         #type the cluster name
+
+ metricsInterval: 60
+ 
+ repository: amazon/cloudwatch-agent
+ tag: 1.247350.0b251780
+ pullPolicy: IfNotPresent
+
+ resources:
+  limits:
+    cpu: 200m
+    memory: 200Mi
+  requests:
+    cpu: 200m
+    memory: 200Mi 
+
+ terminationGracePeriodSeconds: 150
+
+ labels: amazon-cloudwatch
+
+ flushInterval: 5
+
+aws-for-fluent-bit:
+
+ serviceAccount:
+  create: false
+
+ clusterName:                           #type the cluster name
+
+ fluentBitConfigmap: fluent-bit-config
+
+ fluentBitMetadataName: fluent-bit-cluster-info
+
+ fluentBitClusterRole: fluent-bit-role
+
+ fluentBitRoleBinding: fluent-bit-role-binding
+
+ fluentBitServiceAccountname: fluent-bit
+
+ fluentBitDaemonSet: fluent-bit
+
+ labels: fluent-bit
+
+ terminationGracePeriodSeconds: 150
+
+ resources:
+  limits:
+    memory: 200Mi
+  requests:
+    cpu: 500m
+    memory: 100Mi
+
+ memoryBufferLimit: 50MB
+
+ memBufLimit: 5MB
+
+ storageBacklogMemLimit: 5M
+
+ flush : 5
+
+ grace: 30
+
+ refreshInterval: 2
+
+ rotateWait: 30
